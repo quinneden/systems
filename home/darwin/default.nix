@@ -13,6 +13,7 @@
     nix-shell-scripts.lsh
     nix-shell-scripts.wipe-linux
     ks
+    vesktop
   ];
 
   programs = {

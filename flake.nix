@@ -53,7 +53,6 @@
         };
       };
       # home-manager.nixosModules.home-manager
-      # inputs.lix-module.nixosModules.default
       # inputs.nixos-apple-silicon.nixosModules.default
       # inputs.stylix.nixosModules.stylix
 
@@ -62,26 +61,24 @@
 
   inputs = {
     apple-fonts.url = "github:Lyndeno/apple-fonts.nix";
-    hyprcursor-phinger.url = "github:jappie3/hyprcursor-phinger";
-    hyprland.url = "github:hyprwm/hyprland";
-    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
-    hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
-    mac-app-util.url = "github:hraban/mac-app-util";
-    nh.url = "github:viperml/nh";
-    nix-shell-scripts.url = "github:quinneden/nix-shell-scripts";
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    stylix.url = "github:danth/stylix";
 
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprcursor-phinger.url = "github:jappie3/hyprcursor-phinger";
+    hyprland.url = "github:hyprwm/hyprland";
+    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
+    hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
+
     lix-module = {
       url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    mac-app-util.url = "github:hraban/mac-app-util";
+    nh.url = "github:viperml/nh";
 
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
@@ -93,10 +90,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-shell-scripts.url = "github:quinneden/nix-shell-scripts";
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    nixd.url = "github:nix-community/nixd";
+
     nixos-apple-silicon = {
       url = "github:tpwrules/nixos-apple-silicon";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     nur = {
       url = "github:nix-community/NUR";
@@ -112,5 +115,7 @@
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    stylix.url = "github:danth/stylix";
   };
 }

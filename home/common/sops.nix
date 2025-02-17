@@ -22,7 +22,7 @@ in
       "plain/rclone.ini" = {
         format = "ini";
         sopsFile = "${secretsPath}/plain/rclone.ini";
-        path = "${config.xdg.configHome}/rclone/rclone.conf";
+        path = "~/.config/rclone/rclone.conf";
       };
 
       "private_keys/oc-runner" = { };

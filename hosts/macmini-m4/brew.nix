@@ -32,7 +32,7 @@
       "utm"
       "vagrant"
       "vscodium"
-      "zed@preview"
+      "zed"
     ];
 
     brews = [

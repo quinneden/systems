@@ -76,6 +76,7 @@ in
     config.allowUnfree = true;
     overlays = [
       inputs.nix-shell-scripts.overlays.default
+      inputs.nixd.overlays.default
       self.overlays.default
     ];
   };
