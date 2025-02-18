@@ -114,5 +114,6 @@
     };
 
     stylix.url = "github:danth/stylix";
+    zen-browser.url = "github:quinneden/zen-browser-flake";
   };
 }

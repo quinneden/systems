@@ -2,8 +2,12 @@
 
 with lib;
 {
-  options = {
-    theme = {
+  options.theme =
+    mkOption {
+      type = types.attrs;
+      default = { };
+    }
+    // {
       rounding = mkOption {
         type = types.int;
         default = null;
@@ -77,5 +81,4 @@ with lib;
         default = { };
       };
     };
-  };
 }

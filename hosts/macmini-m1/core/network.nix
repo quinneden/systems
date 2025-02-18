@@ -22,7 +22,7 @@
     };
   };
 
-  services.bluenan.enable = true;
+  services.blueman.enable = true;
 
   hardware.bluetooth = {
     enable = true;

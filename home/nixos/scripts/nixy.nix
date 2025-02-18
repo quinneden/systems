@@ -8,7 +8,6 @@
 {
   pkgs,
   config,
-  inputs,
   ...
 }:
 let
@@ -71,7 +70,7 @@ let
         elif [[ $1 == "loop" ]];then
           while true; do
             nixy
-            echo "Press enter to continue, e to exit" 
+            echo "Press enter to continue, e to exit"
             read -n 1 REPLY
             clear
             [[ $REPLY == "e" ]] && exit 0
