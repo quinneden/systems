@@ -69,7 +69,7 @@
   nixpkgs.overlays = [
     inputs.hyprpanel.overlay
     inputs.nh.overlays.default
-    self.overlays.darwin
+    self.overlays.linux
   ];
 
   security.sudo.wheelNeedsPassword = false;
