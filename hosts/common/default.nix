@@ -35,7 +35,6 @@ in
     nixPath = [ "nixpkgs=flake:nixpkgs" ];
     optimise = {
       automatic = true;
-      dates = "weekly";
     };
     settings = {
       accept-flake-config = true;
