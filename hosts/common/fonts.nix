@@ -13,7 +13,7 @@
       noto
       victor-mono
     ]
-    ++ [
+    ++ (with pkgs; [
       operator-mono-nerd-font
-    ];
+    ]);
 }
