@@ -52,9 +52,6 @@
           modules = [ ./hosts/macmini-m1 ];
         };
       };
-      # home-manager.nixosModules.home-manager
-      # inputs.nixos-apple-silicon.nixosModules.default
-      # inputs.stylix.nixosModules.stylix
 
       overlays = import ./overlays;
     };

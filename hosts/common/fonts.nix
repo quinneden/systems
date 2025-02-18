@@ -9,6 +9,7 @@
     iosevka-term
     symbols-only
     noto
+    operator-mono-nerd-font
     victor-mono
   ];
 }

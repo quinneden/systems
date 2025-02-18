@@ -1,0 +1,26 @@
+{ lib, pkgs, ... }:
+{
+  imports = lib.custom.scanPaths ./.;
+
+  programs.dconf.enable = true;
+
+  documentation = {
+    enable = true;
+    doc.enable = false;
+    man.enable = true;
+    dev.enable = false;
+    info.enable = false;
+    nixos.enable = false;
+  };
+
+  environment.systemPackages = with pkgs; [
+    bc
+    curl
+    fd
+    gcc
+    gh
+    git-ignore
+    wget
+    xdg-utils
+  ];
+}

@@ -23,7 +23,7 @@
     (
       prev.lib.packagesFromDirectoryRecursive {
         callPackage = prev.lib.callPackageWith final;
-        directory = ../pkgs/common;
+        directory = ../pkgs/darwin;
       }
       // {
         qemu = prev.qemu.overrideAttrs {
@@ -37,5 +37,23 @@
       }
     );
 
-  linux = final: prev: { };
+  linux =
+    final: prev:
+    (
+      prev.lib.packagesFromDirectoryRecursive {
+        callPackage = prev.lib.callPackageWith final;
+        directory = ../pkgs/linux;
+      }
+      // {
+        base16-schemes = prev.base16-schemes.overrideAttrs {
+          version = "spec-0.11";
+          src = prev.fetchFromGitHub {
+            owner = "tinted-theming";
+            repo = "schemes";
+            rev = "refs/heads/spec-0.11";
+            hash = "sha256-y+9cvOA6BLKT0WfebDsyUpUa/YxKow9hTjBp6HpQv68=";
+          };
+        };
+      }
+    );
 }
