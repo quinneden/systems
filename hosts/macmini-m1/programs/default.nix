@@ -3,6 +3,7 @@
   imports = lib.custom.scanPaths ./.;
 
   programs.dconf.enable = true;
+  programs.zsh.enable = true;
 
   documentation = {
     enable = true;
