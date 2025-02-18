@@ -17,7 +17,7 @@ in
     ++ (with inputs; [
       ../../modules/${platform}
       home-manager.${platformModules}.default
-      lix-module.nixosModules.default
+      # lix-module.nixosModules.default
       sops-nix.${platformModules}.default
     ]);
 

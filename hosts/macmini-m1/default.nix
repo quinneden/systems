@@ -11,6 +11,7 @@
     ../common
     inputs.nixos-apple-silicon.nixosModules.default
     inputs.stylix.nixosModules.stylix
+    inputs.lix-module.nixosModules.lixFromNixpkgs
   ];
 
   console.keyMap = config.var.keyboardLayout;

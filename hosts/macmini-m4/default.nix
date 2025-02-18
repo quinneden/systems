@@ -9,6 +9,7 @@
   imports = (lib.custom.scanPaths ./.) ++ [
     ../common
     inputs.mac-app-util.darwinModules.default
+    inputs.lix-module.nixosModules.default
   ];
 
   users.users.quinn = {
