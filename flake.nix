@@ -53,7 +53,7 @@
         };
       };
 
-      overlays = import ./overlays;
+      overlays = import ./overlays { inherit inputs; };
     };
 
   inputs = {
@@ -69,9 +69,15 @@
     hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
     hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
 
+    lix = {
+      url = "https://git.lix.systems/lix-project/lix/archive/main.tar.gz";
+      flake = false;
+    };
+
     lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0.tar.gz";
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/main.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.lix.follows = "lix";
     };
 
     mac-app-util.url = "github:hraban/mac-app-util";
@@ -87,7 +93,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-shell-scripts.url = "github:quinneden/nix-shell-scripts";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     nixd.url = "github:nix-community/nixd";
 
@@ -98,6 +103,8 @@
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    nixvim.url = "github:quinneden/nixvim";
+
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -107,6 +114,8 @@
       url = "git+ssh://git@github.com/quinneden/secrets.git?ref=main&shallow=1";
       inputs = { };
     };
+
+    shellpers.url = "github:quinneden/shellpers?ref=dev";
 
     sops-nix = {
       url = "github:mic92/sops-nix";

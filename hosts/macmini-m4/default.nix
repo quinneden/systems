@@ -9,7 +9,7 @@
   imports = (lib.custom.scanPaths ./.) ++ [
     ../common
     inputs.mac-app-util.darwinModules.default
-    inputs.lix-module.nixosModules.default
+    # inputs.lix-module.nixosModules.default
   ];
 
   users.users.quinn = {
@@ -26,14 +26,21 @@
   ];
 
   system = {
-    activationScripts.postUserActivation.text = ''
-      /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-    '';
+    activationScripts = {
+      postActivation.text = ''
+        unlink /etc/hosts
+        mv /etc/hosts.before-nix-darwin /etc/hosts
+      '';
+
+      postUserActivation.text = ''
+        /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+      '';
+    };
 
     defaults = {
       dock = {
         autohide = true;
-        autohide-delay = 0.2;
+        autohide-delay = 0.4;
         autohide-time-modifier = 0.7;
         mineffect = "suck";
         show-recents = false;
@@ -50,7 +57,7 @@
       NSGlobalDomain = {
         ApplePressAndHoldEnabled = false; # enable press and hold
         InitialKeyRepeat = 12; # normal minimum is 15 (225 ms), maximum is 120 (1800 ms)
-        KeyRepeat = 2; # normal minimum is 2 (30 ms), maximum is 120 (1800 ms)
+        KeyRepeat = 3; # normal minimum is 2 (30 ms), maximum is 120 (1800 ms)
 
         NSAutomaticCapitalizationEnabled = false; # disable auto capitalization
         NSAutomaticDashSubstitutionEnabled = false; # disable auto dash substitution
@@ -119,15 +126,20 @@
       loginwindow = {
         GuestEnabled = false; # disable guest user
         SHOWFULLNAME = false; # show full name in login window
+        DisableConsoleAccess = false;
+      };
+      trackpad = {
+        ActuationStrength = 0;
       };
     };
 
     keyboard = {
       enableKeyMapping = true;
+      remapCapsLockToEscape = true;
     };
 
     stateVersion = 5;
   };
 
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 }

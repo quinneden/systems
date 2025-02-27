@@ -25,11 +25,13 @@ let
 in
 {
   programs.vscode = {
-    enable = true;
+    enable = false;
     package = if isDarwin then vscodiumDummy else pkgs.vscodium;
 
-    extensions = import ./extensions.nix { inherit inputs pkgs; };
-    keybindings = import ./keybindings.nix { inherit lib pkgs; };
-    userSettings = import ./settings.nix { inherit lib pkgs; };
+    profiles.default = {
+      extensions = import ./extensions.nix { inherit inputs pkgs; };
+      keybindings = import ./keybindings.nix { inherit lib pkgs; };
+      userSettings = import ./settings.nix { inherit lib pkgs; };
+    };
   };
 }

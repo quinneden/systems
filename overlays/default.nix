@@ -1,3 +1,4 @@
+{ inputs, ... }:
 {
   default =
     final: prev:
@@ -15,6 +16,8 @@
             hash = "sha256-y5s/qBZWLKNMnrbN7qGXNJD87yuMtw2EuvrLVvX9qmI=";
           };
         };
+
+        neovim = inputs.nixvim.packages.${prev.system}.default;
       }
     );
 
@@ -26,14 +29,14 @@
         directory = ../pkgs/darwin;
       }
       // {
-        qemu = prev.qemu.overrideAttrs {
-          patches = prev.qemu.patches ++ [
-            (prev.fetchpatch {
-              url = "https://raw.githubusercontent.com/utmapp/UTM/acbf2ba8cd91f382a5e163c49459406af0b462b7/patches/qemu-9.1.0-utm.patch";
-              sha256 = "sha256-S7DJSFD7EAzNxyQvePAo5ZZyanFrwQqQ6f2/hJkTJGA=";
-            })
-          ];
-        };
+        # qemu = prev.qemu.overrideAttrs {
+        #   patches = prev.qemu.patches ++ [
+        #     (prev.fetchpatch {
+        #       url = "https://raw.githubusercontent.com/utmapp/UTM/acbf2ba8cd91f382a5e163c49459406af0b462b7/patches/qemu-9.1.0-utm.patch";
+        #       sha256 = "sha256-S7DJSFD7EAzNxyQvePAo5ZZyanFrwQqQ6f2/hJkTJGA=";
+        #     })
+        #   ];
+        # };
       }
     );
 

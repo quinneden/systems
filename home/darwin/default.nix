@@ -9,9 +9,6 @@
   imports = lib.custom.scanPaths ./. ++ (with inputs; [ mac-app-util.homeManagerModules.default ]);
 
   home.packages = with pkgs; [
-    nix-shell-scripts.darwin-switch
-    nix-shell-scripts.lsh
-    nix-shell-scripts.wipe-linux
     ks
     vesktop
   ];
@@ -31,15 +28,15 @@
       includes = [ "config.d/*.conf" ];
       matchBlocks = {
         "oc-runner" = {
-          hostname = "129.146.66.178";
+          hostname = "100.88.22.94";
           user = "root";
-          identityFile = "${config.sops.secrets."private_keys/oc-runner".path}";
+          identityFile = config.sops.secrets."private_keys/oc-runner".path;
         };
 
         "picache" = {
           hostname = "10.0.0.101";
           user = "qeden";
-          identityFile = "${config.sops.secrets."private_keys/picache".path}";
+          identityFile = config.sops.secrets."private_keys/picache".path;
         };
 
         "macmini-m1".hostname = "10.0.0.235";

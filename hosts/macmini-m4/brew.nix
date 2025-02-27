@@ -29,6 +29,7 @@
       "obsidian"
       "pearcleaner"
       "podman-desktop"
+      # "tailscale"
       "utm"
       "vagrant"
       "vscodium"

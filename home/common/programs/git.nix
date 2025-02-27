@@ -2,6 +2,16 @@
 {
   programs.git = {
     enable = true;
+
+    ignores = [
+      ".DS_Store"
+      ".direnv"
+      "result"
+      "result*"
+      ".env"
+      ".env.*"
+    ];
+
     signing.format = "ssh";
     extraConfig = {
       color.ui = true;
@@ -11,7 +21,9 @@
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
       url = {
-        "https://oauth2:${inputs.secrets.git.token}@github.com".insteadOf = "https://github.com";
+        "https://oauth2:${inputs.secrets.git.token}@github.com" = {
+          insteadOf = "https://github.com";
+        };
       };
     };
     userEmail = "quinnyxboy@gmail.com";

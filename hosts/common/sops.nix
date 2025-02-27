@@ -1,10 +1,11 @@
-{ inputs, ... }:
+{ inputs, pkgs, ... }:
 let
-  secretsPath = toString inputs.secrets;
+  secretsPath = toString inputs.secrets + "/sops";
+  homeDirectory = if pkgs.stdenv.isDarwin then "/Users/quinn" else "/home/quinn";
 in
 {
   sops = {
-    defaultSopsFile = "${secretsPath}/secrets.yaml";
+    defaultSopsFile = "${secretsPath}/default.yaml";
     validateSopsFiles = false;
 
     age = {
@@ -19,8 +20,13 @@ in
       "passwords/quinn" = { };
       "passwords/root" = { };
 
-      "private_keys/oc-runner" = { };
-      "private_keys/picache" = { };
+      "private_keys/oc-runner" = {
+        path = "${homeDirectory}/.ssh/keys/oc-runner";
+      };
+
+      "private_keys/picache" = {
+        path = "${homeDirectory}/.ssh/keys/picache";
+      };
     };
   };
 }

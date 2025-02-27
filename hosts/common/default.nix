@@ -17,11 +17,11 @@ in
     ++ (with inputs; [
       ../../modules/${platform}
       home-manager.${platformModules}.default
-      # lix-module.nixosModules.default
       sops-nix.${platformModules}.default
     ]);
 
   home-manager = {
+    backupFileExtension = "hmbak";
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs platform; };
@@ -44,7 +44,6 @@ in
       experimental-features = [
         "nix-command"
         "flakes"
-        "repl-flake"
       ];
       extra-substituters = [
         "https://cache.lix.systems"
@@ -68,7 +67,7 @@ in
   nixpkgs = {
     config.allowUnfree = true;
     overlays = [
-      inputs.nix-shell-scripts.overlays.default
+      inputs.shellpers.overlays.default
       inputs.nixd.overlays.default
       self.overlays.default
     ];

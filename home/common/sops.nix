@@ -1,6 +1,11 @@
-{ config, inputs, ... }:
+{
+  inputs,
+  pkgs,
+  ...
+}:
 let
-  secretsPath = toString inputs.secrets;
+  secretsPath = toString inputs.secrets + "/sops";
+  homeDirectory = if pkgs.stdenv.isDarwin then "/Users/quinn" else "/home/quinn";
 in
 {
   sops = {
@@ -8,32 +13,25 @@ in
     validateSopsFiles = false;
 
     age = {
-      sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-      keyFile = "/var/lib/sops-nix/key.txt";
+      sshKeyPaths = [ "${homeDirectory}/.ssh/id_ed25519" ];
+      keyFile = "${homeDirectory}/.config/sops/key.txt";
       generateKey = true;
     };
 
     secrets = {
       github_token = { };
 
-      "passwords/quinn" = { };
-      "passwords/root" = { };
-
       "plain/rclone.ini" = {
         format = "ini";
         sopsFile = "${secretsPath}/plain/rclone.ini";
-        path = "~/.config/rclone/rclone.conf";
+        path = "${homeDirectory}/.config/rclone/rclone.conf";
       };
 
-      "private_keys/oc-runner" = { };
-      "private_keys/picache" = { };
-
-      "private_host_keys/macmini-m1" = {
-        path = "/etc/ssh/ssh_host_ed25519_key";
+      "private_keys/oc-runner" = {
+        path = "${homeDirectory}/.ssh/keys/oc-runner";
       };
-
-      "private_host_keys/macmini-m4" = {
-        path = "/etc/ssh/ssh_host_ed25519_key";
+      "private_keys/picache" = {
+        path = "${homeDirectory}/.ssh/keys/picache";
       };
     };
   };
