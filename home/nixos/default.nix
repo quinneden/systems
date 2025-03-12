@@ -8,5 +8,6 @@
   stylix.targets = {
     micro.enable = false;
     vscode.enable = false;
+    zed.enable = false;
   };
 }
