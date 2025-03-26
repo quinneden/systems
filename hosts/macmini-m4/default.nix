@@ -9,7 +9,6 @@
   imports = (lib.custom.scanPaths ./.) ++ [
     ../common
     inputs.mac-app-util.darwinModules.default
-    # inputs.lix-module.nixosModules.default
   ];
 
   users.users.quinn = {
@@ -27,10 +26,10 @@
 
   system = {
     activationScripts = {
-      postActivation.text = ''
-        unlink /etc/hosts
-        mv /etc/hosts.before-nix-darwin /etc/hosts
-      '';
+      # postActivation.text = ''
+      #   unlink /etc/hosts
+      #   mv /etc/hosts.before-nix-darwin /etc/hosts
+      # '';
 
       postUserActivation.text = ''
         /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
@@ -39,7 +38,7 @@
 
     defaults = {
       dock = {
-        autohide = true;
+        autohide = false;
         autohide-delay = 0.4;
         autohide-time-modifier = 0.7;
         mineffect = "suck";

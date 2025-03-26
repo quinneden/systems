@@ -6,7 +6,7 @@
   ...
 }:
 {
-  imports = lib.custom.scanPaths ./. ++ (with inputs; [ mac-app-util.homeManagerModules.default ]);
+  imports = (lib.custom.scanPaths ./.) ++ (with inputs; [ mac-app-util.homeManagerModules.default ]);
 
   home.packages = with pkgs; [
     ks
@@ -36,7 +36,6 @@
         "picache" = {
           hostname = "10.0.0.101";
           user = "qeden";
-          identityFile = config.sops.secrets."private_keys/picache".path;
         };
 
         "macmini-m1".hostname = "10.0.0.235";

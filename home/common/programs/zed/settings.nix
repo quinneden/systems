@@ -4,6 +4,7 @@
       model = "o3-mini";
       provider = "copilot_chat";
     };
+    version = "2";
   };
 
   base_keymap = "VSCode";
@@ -120,6 +121,7 @@
 
   theme = {
     dark = "Monolith Dark";
+    light = "Monolith Dark";
     mode = "dark";
   };
 

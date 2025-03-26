@@ -2,12 +2,12 @@
   description = "NixOS(-Apple-Silicon) and Nix-darwin configurations.";
 
   outputs =
-    inputs@{
+    {
       nix-darwin,
       nixpkgs,
       self,
       ...
-    }:
+    }@inputs:
     let
       forEachSystem =
         f:
@@ -21,7 +21,10 @@
             f {
               pkgs = import nixpkgs {
                 inherit system;
-                overlays = [ self.overlays.default ];
+                overlays = [
+                  inputs.lix-module.overlays.default
+                  self.overlays.default
+                ];
               };
             }
           );
@@ -69,15 +72,20 @@
     hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
     hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
 
-    lix = {
-      url = "https://git.lix.systems/lix-project/lix/archive/main.tar.gz";
-      flake = false;
-    };
+    # lix = {
+    #   url = "https://git.lix.systems/lix-project/lix/archive/main.tar.gz";
+    #   flake = false;
+    # };
+
+    # lix-module = {
+    #   url = "https://git.lix.systems/lix-project/nixos-module/archive/main.tar.gz";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   inputs.lix.follows = "lix";
+    # };
 
     lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/main.tar.gz";
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0-1.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.lix.follows = "lix";
     };
 
     mac-app-util.url = "github:hraban/mac-app-util";
@@ -88,13 +96,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-rosetta-builder = {
-      url = "github:quinneden/nix-rosetta-builder?ref=opinionated";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nix-rosetta-builder.url = "github:quinneden/nix-rosetta-builder?ref=opinionated";
 
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-    nixd.url = "github:nix-community/nixd";
 
     nixos-apple-silicon = {
       url = "github:tpwrules/nixos-apple-silicon";

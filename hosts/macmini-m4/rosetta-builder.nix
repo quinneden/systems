@@ -5,16 +5,10 @@
   nix-rosetta-builder = {
     enable = true;
 
-    withRosetta = false;
     cores = 8;
-    memory = "6GiB";
-    diskSize = "100GiB";
-    onDemand = true;
-    allowExtraConfig = true;
+    diskSize = "150GiB";
 
     extraConfig = {
-      imports = [ inputs.lix-module.nixosModules.default ];
-
       nix = {
         optimise.automatic = true;
         settings = {
@@ -27,5 +21,9 @@
         };
       };
     };
+
+    memory = "8GiB";
+    onDemand = true;
+    withRosetta = false;
   };
 }

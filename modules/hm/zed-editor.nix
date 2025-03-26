@@ -13,7 +13,7 @@ with lib;
     };
   };
 
-  config = mkIf (cfg.extraThemes != null) {
+  config = mkIf (cfg.enable && (cfg.extraThemes != null)) {
     home.file = listToAttrs (
       forEach cfg.extraThemes (
         theme:

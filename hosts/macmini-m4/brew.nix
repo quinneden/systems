@@ -21,15 +21,18 @@
     ];
 
     casks = [
+      # "android-commandlinetools"
       "betterdisplay"
       "deskflow"
+      "element"
       "ghostty@tip"
       "iterm2"
       "macfuse"
       "obsidian"
       "pearcleaner"
       "podman-desktop"
-      # "tailscale"
+      "tailscale"
+      # "temurin"
       "utm"
       "vagrant"
       "vscodium"
