@@ -11,6 +11,10 @@
       nix = ./syntax/nix.yaml;
     };
 
+    plugins = [
+      "joinLines"
+    ];
+
     settings = {
       autoclose = true;
       autosu = true;

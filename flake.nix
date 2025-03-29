@@ -63,7 +63,7 @@
     apple-fonts.url = "github:Lyndeno/apple-fonts.nix";
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -72,19 +72,8 @@
     hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
     hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
 
-    # lix = {
-    #   url = "https://git.lix.systems/lix-project/lix/archive/main.tar.gz";
-    #   flake = false;
-    # };
-
-    # lix-module = {
-    #   url = "https://git.lix.systems/lix-project/nixos-module/archive/main.tar.gz";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   inputs.lix.follows = "lix";
-    # };
-
     lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0-1.tar.gz";
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0-3.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

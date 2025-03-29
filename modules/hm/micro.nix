@@ -1,18 +1,16 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
 }:
-
+with lib;
 let
   cfg = config.programs.micro;
+  hmLib = inputs.home-manager.lib;
   jsonFormat = pkgs.formats.json { };
-  inherit (pkgs) fetchgit;
 in
-
-with lib;
-
 {
   options = {
     programs.micro = {
@@ -38,45 +36,35 @@ with lib;
         '';
       };
 
-      # plugins = mkOption {
-      #   type =
-      #     with types;
-      #     nullOr (
-      #       attrsOf (submodule {
-      #         options = {
-      #           url = mkOption { type = str; };
-      #           hash = mkOption { type = str; };
-      #         };
-      #       })
-      #     );
-
-      #   default = null;
-      #   description = "Specify plugins to install into {file}`~/.config/micro/plug/<plugin-name>.`";
-      #   example = literalExpression ''
-      #     micro-autofmt = {
-      #       url = "https://github.com/quinneden/micro-autofmt";
-      #       rev = "refs/heads/main";
-      #     };
-      #   '';
-      # };
+      plugins = mkOption {
+        type =
+          with types;
+          listOf (oneOf [
+            (strMatching "aspell")
+            (strMatching "autofmt")
+            (strMatching "bookmark")
+            (strMatching "bounce")
+            (strMatching "cheat")
+            (strMatching "detectindent")
+            (strMatching "editorconfig")
+            (strMatching "go")
+            (strMatching "gotham-colors")
+            (strMatching "jlabbrev")
+            (strMatching "joinLines")
+            (strMatching "jump")
+            (strMatching "monokai-dark")
+            (strMatching "nord-tc-colors")
+            (strMatching "palettero")
+            (strMatching "lsp")
+            (strMatching "quickfix")
+            (strMatching "quoter")
+            (strMatching "run")
+            (strMatching "scratch")
+            (strMatching "wakatime")
+            (strMatching "zigfmt")
+          ]);
+      };
     };
-
-    # colors = mkOption {
-    #   type = with types; listOf attrs;
-    #   default = [ ];
-    #   description = "List of colorscheme yaml files to install to ~/.config/micro/colorschemes.";
-    #   example = literalExpression ''
-    #     [
-    #       {
-    #         name = "cuddles";
-    #         source = pkgs.fetchgit {
-    #           url = <url>;
-    #           hash = <hash>;
-    #         };
-    #       }
-    #     ]
-    #   '';
-    # };
   };
 
   config = mkIf cfg.enable {
@@ -89,7 +77,7 @@ with lib;
         mapAttrs (name: plug: {
           recursive = true;
           target = ".config/micro/plug/" + name;
-          source = fetchgit {
+          source = pkgs.fetchzip {
             url = plug.url;
             hash = plug.hash;
           };
@@ -101,6 +89,32 @@ with lib;
           source = path;
         }) cfg.extraSyntax
       ))
+    );
+
+    home.activation."micro-install-plugins" = mkIf (cfg.plugins != [ ]) (
+      hmLib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        PATH=${pkgs.micro}/bin:$PATH
+        pluginsList=(${builtins.concatStringsSep " " cfg.plugins})
+        pluginsInstalled=($(micro -plugin list | tail -n +2 | cut -f1 -d' ' | sort -u))
+        pluginsToInstall=()
+        # pluginsToRemove=()
+        for plugin in "''${pluginsList[@]}"; do
+            if [[ ! " ''${pluginsInstalled[@]} " =~ " $plugin " ]]; then
+                pluginsToInstall+=("$plugin")
+            fi
+        done
+        # for plugin in "''${pluginsInstalled[@]}"; do
+        #     if [[ ! " ''${pluginsList[@]} " =~ " $plugin " ]]; then
+        #         pluginsToRemove+=("$plugin")
+        #     fi
+        # done
+        # for plugin in "''${pluginsToRemove[@]}"; do
+        #     micro -plugin remove "$plugin"
+        # done
+        for plugin in "''${pluginsToInstall[@]}"; do
+            micro -plugin install "$plugin"
+        done
+      ''
     );
   };
 }

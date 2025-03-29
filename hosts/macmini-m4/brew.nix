@@ -15,7 +15,6 @@
       "homebrew/bundle"
       "homebrew/services"
       "deskflow/homebrew-tap"
-      "tinted-theming/tinted"
       "slp/krunkit"
       "slp/krun"
     ];
@@ -25,7 +24,6 @@
       "deskflow"
       "element"
       "eqmac"
-      "ghostty@tip"
       "iterm2"
       "macfuse"
       "obsidian"
@@ -34,8 +32,7 @@
       "tailscale"
       "utm"
       "vagrant"
-      "vscodium"
-      "zed"
+      # "zed"
     ];
 
     brews = [
@@ -109,9 +106,7 @@
       "rustup"
       "shc"
       "shellcheck"
-      "tinty"
       "tree"
-      "vercel-cli"
       "w3m"
       "wget"
       "yazi"

@@ -1,55 +1,57 @@
-{ pkgs, ... }:
-# let
-#   zedDummy =
-#     with pkgs;
-#     stdenv.mkDerivation {
-#       inherit (zed-editor) pname version;
-#
-#       buildCommand = ''
-#         mkdir -p $out/bin
-#         cat > $out/bin/zeditor <<EOF
-#         if [[ -f /Applications/Zed.app/Contents/MacOS/cli ]]; then
-#           exec /Applications/Zed.app/Contents/MacOS/cli
-#         else
-#           echo "This is a dummy executable"
-#           exit 0
-#         fi
-#         EOF
-#         chmod +x 755 $out/bin/zeditor
-#       '';
-#
-#       meta.mainProgram = "zeditor";
-#     };
-# in
+{
+  pkgs,
+  ...
+}:
+let
+  pythonEnv = pkgs.python3.withPackages (
+    ps: with ps; [
+      ipykernel
+      ipython
+      pip
+      python-lsp-server
+      rope
+    ]
+  );
+in
 {
   programs.zed-editor = {
-    enable = pkgs.stdenv.isLinux;
-
+    enable = true;
     extraPackages = with pkgs; [
-      nil
       nixd
       nixfmt-rfc-style
-      python3
-      python3Packages.black
-      python3Packages.python-lsp-server
+      pythonEnv
+      superhtml
+      vscode-langservers-extracted
+      marksman
     ];
 
     extraThemes = [
-      ./themes/monospace-theme.json
+      ./themes/AyuQ.json
+      ./themes/MonolithHighlighted.json
     ];
 
     extensions = [
+      "basher"
+      "dockerfile"
+      "env"
       "git-firefly"
-      "toml"
-      "xy-zed-theme"
-      "symbols"
+      "html"
+      "ini"
+      "justfile"
+      "lua"
+      "make"
+      "marksman"
       "nix"
       "oh-lucy"
       "panda-theme"
-      "pylsp"
+      "pyslp"
+      "superhtml"
+      "swift"
+      "symbols"
+      "toml"
     ];
 
-    userKeymaps = import ./keymap.nix;
-    userSettings = import ./settings.nix;
+    userKeymaps.enable = false;
+    userSettings.enable = false;
   };
 }
