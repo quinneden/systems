@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   pkgs,
   ...
@@ -26,11 +27,12 @@ in
         sopsFile = "${secretsPath}/plain/rclone.ini";
         path = "${homeDirectory}/.config/rclone/rclone.conf";
       };
-
       "private_keys/oc-runner" = {
+        mode = "0600";
         path = "${homeDirectory}/.ssh/keys/oc-runner";
       };
       "private_keys/picache" = {
+        mode = "0600";
         path = "${homeDirectory}/.ssh/keys/picache";
       };
     };

@@ -1,4 +1,9 @@
-{ inputs, pkgs, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
 let
   secretsPath = toString inputs.secrets + "/sops";
   homeDirectory = if pkgs.stdenv.isDarwin then "/Users/quinn" else "/home/quinn";
@@ -21,10 +26,13 @@ in
       "passwords/root" = { };
 
       "private_keys/oc-runner" = {
+        mode = "0600";
+        owner = config.users.users.quinn.name;
         path = "${homeDirectory}/.ssh/keys/oc-runner";
       };
-
       "private_keys/picache" = {
+        mode = "0600";
+        owner = config.users.users.quinn.name;
         path = "${homeDirectory}/.ssh/keys/picache";
       };
     };

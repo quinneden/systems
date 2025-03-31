@@ -113,17 +113,11 @@
     "**/*.key"
     "**/*.cert"
     "**/*.crt"
-    "**/secrets.y.*ml"
+    "**/secrets.yaml"
+    "**/secrets.yml"
   ];
   project_panel = {
     auto_fold_dirs = false;
-  };
-  pylsp = {
-    settings = {
-      rope = {
-        ropeFolder = null;
-      };
-    };
   };
   scroll_sensitivity = 1.3;
   tab_size = 2;

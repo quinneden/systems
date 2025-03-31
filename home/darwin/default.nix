@@ -14,7 +14,7 @@
   ];
 
   programs = {
-    man.enable = false;
+    man.enable = true;
 
     direnv = {
       enable = true;
@@ -28,7 +28,7 @@
       includes = [ "config.d/*.conf" ];
       matchBlocks = {
         "oc-runner" = {
-          hostname = "100.88.22.94";
+          hostname = "129.146.66.178";
           user = "root";
           identityFile = config.sops.secrets."private_keys/oc-runner".path;
         };

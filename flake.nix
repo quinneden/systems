@@ -108,7 +108,7 @@
       inputs = { };
     };
 
-    shellpers.url = "github:quinneden/shellpers?ref=dev";
+    shellpers.url = "github:quinneden/shellpers";
 
     sops-nix = {
       url = "github:mic92/sops-nix";

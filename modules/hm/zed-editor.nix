@@ -131,6 +131,7 @@ in
             postBuild = ''
               wrapProgram $out/bin/zeditor \
                 --suffix PATH : ${lib.makeBinPath cfg.extraPackages}
+              ln -s $out/bin/zeditor $out/bin/zed
             '';
           })
         ]
