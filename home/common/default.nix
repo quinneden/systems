@@ -11,6 +11,7 @@
     file.".hushlogin".text = "";
 
     packages = with pkgs; [
+      acmsg
       cachix
       eza
       gawk

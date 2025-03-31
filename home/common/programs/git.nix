@@ -26,7 +26,7 @@
         };
       };
     };
-    userEmail = "quinnyxboy@gmail.com";
+    userEmail = "quinn@qeden.dev";
     userName = "Quinn Edenfield";
   };
 }

@@ -66,6 +66,7 @@ in
   nixpkgs = {
     config.allowUnfree = true;
     overlays = [
+      inputs.acmsg.overlays.default
       inputs.shellpers.overlays.default
       self.overlays.default
     ];
