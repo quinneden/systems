@@ -18,10 +18,8 @@
       gnutar
       inputs.shellpers.packages.${pkgs.system}.metapackage
       neovim
-      nil
       nix-prefetch-git
       nix-prefetch-github
-      nixd
       nixfmt-rfc-style
       qemu
       zoxide

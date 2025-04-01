@@ -23,22 +23,10 @@
 
   darwin =
     final: prev:
-    (
-      prev.lib.packagesFromDirectoryRecursive {
-        callPackage = prev.lib.callPackageWith final;
-        directory = ../pkgs/darwin;
-      }
-      // {
-        # qemu = prev.qemu.overrideAttrs {
-        #   patches = prev.qemu.patches ++ [
-        #     (prev.fetchpatch {
-        #       url = "https://raw.githubusercontent.com/utmapp/UTM/acbf2ba8cd91f382a5e163c49459406af0b462b7/patches/qemu-9.1.0-utm.patch";
-        #       sha256 = "sha256-S7DJSFD7EAzNxyQvePAo5ZZyanFrwQqQ6f2/hJkTJGA=";
-        #     })
-        #   ];
-        # };
-      }
-    );
+    (prev.lib.packagesFromDirectoryRecursive {
+      callPackage = prev.lib.callPackageWith final;
+      directory = ../pkgs/darwin;
+    });
 
   linux =
     final: prev:

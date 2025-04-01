@@ -17,7 +17,7 @@ in
     ++ (with inputs; [
       ../../modules/${platform}
       home-manager.${platformModules}.default
-      # lix-module.nixosModules.default
+      lix-module.nixosModules.default
       sops-nix.${platformModules}.default
     ]);
 
@@ -54,7 +54,6 @@ in
         "quinneden.cachix.org-1:1iSAVU2R8SYzxTv3Qq8j6ssSPf0Hz+26gfgXkvlcbuA="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
-      # secret-key-files = [ "${../../.secrets/keys/cache-private-key.pem}" ];
       trusted-users = [
         "quinn"
         "root"
@@ -65,6 +64,7 @@ in
 
   nixpkgs = {
     config.allowUnfree = true;
+
     overlays = [
       inputs.acmsg.overlays.default
       inputs.shellpers.overlays.default
