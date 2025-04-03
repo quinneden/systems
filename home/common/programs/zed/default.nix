@@ -21,12 +21,13 @@ in
   programs.zed-editor = {
     enable = true;
     extraPackages = with pkgs; [
+      markdown-oxide
+      marksman
       nixd
       nixfmt-rfc-style
       pythonEnv
       superhtml
       vscode-langservers-extracted
-      marksman
     ];
 
     extraThemes = [
@@ -44,6 +45,7 @@ in
       "justfile"
       "lua"
       "make"
+      "markdown-oxide"
       "marksman"
       "nix"
       "oh-lucy"
