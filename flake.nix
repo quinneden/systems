@@ -11,23 +11,18 @@
     let
       forEachSystem =
         f:
-        inputs.nixpkgs.lib.genAttrs
-          [
-            "aarch64-darwin"
-            "aarch64-linux"
-          ]
-          (
-            system:
-            f {
-              pkgs = import nixpkgs {
-                inherit system;
-                overlays = [
-                  inputs.lix-module.overlays.default
-                  self.overlays.default
-                ];
-              };
-            }
-          );
+        inputs.nixpkgs.lib.genAttrs [ "aarch64-darwin" "aarch64-linux" ] (
+          system:
+          f {
+            pkgs = import nixpkgs {
+              inherit system;
+              overlays = [
+                inputs.lix-module.overlays.default
+                self.overlays.default
+              ];
+            };
+          }
+        );
 
       lib = nixpkgs.lib.extend (self: super: { custom = import ./lib { inherit (nixpkgs) lib; }; });
     in

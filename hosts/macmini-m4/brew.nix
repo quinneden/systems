@@ -95,7 +95,6 @@
       "podman-compose"
       "podman-tui"
       "podman"
-      "pure"
       "pv"
       "qemu"
       "rclone"

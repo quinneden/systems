@@ -4,15 +4,17 @@ let
     ps: with ps; [
       beautifulsoup4
       boto3
+      colorama
       ipykernel
       ipython
+      jedi
       pip
-      pylsp-rope
-      python-lsp-server
+      pycodestyle
+      pyflakes
+      pytest
       pyyaml
       requests
       rope
-      venvShellHook
       yapf
     ]
   );
@@ -20,6 +22,7 @@ in
 {
   programs.zed-editor = {
     enable = true;
+
     extraPackages = with pkgs; [
       markdown-oxide
       marksman
@@ -27,7 +30,6 @@ in
       nixfmt-rfc-style
       pythonEnv
       superhtml
-      vscode-langservers-extracted
     ];
 
     extraThemes = [
@@ -35,29 +37,26 @@ in
       ./themes/MonolithHighlighted.json
     ];
 
-    extensions = [
-      "basher"
-      "dockerfile"
-      "env"
-      "git-firefly"
-      "html"
-      "ini"
-      "justfile"
-      "lua"
-      "make"
-      "markdown-oxide"
-      "marksman"
-      "nix"
-      "oh-lucy"
-      "panda-theme"
-      "pylsp"
-      "superhtml"
-      "swift"
-      "symbols"
-      "toml"
-    ];
-
-    userKeymaps.enable = false;
-    userSettings.enable = false;
+    # extensions = [
+    #   "basher"
+    #   "dockerfile"
+    #   "env"
+    #   "git-firefly"
+    #   "html"
+    #   "ini"
+    #   "justfile"
+    #   "lua"
+    #   "make"
+    #   "markdown-oxide"
+    #   "marksman"
+    #   "nix"
+    #   "oh-lucy"
+    #   "panda-theme"
+    #   "pylsp"
+    #   "superhtml"
+    #   "swift"
+    #   "symbols"
+    #   "toml"
+    # ];
   };
 }

@@ -16,6 +16,7 @@ let
     ll = "eza -glAh --octal-permissions --group-directories-first";
     ls = "eza -A";
     push = "git push";
+    zed = "zeditor";
   };
 
   darwinAliases = {
