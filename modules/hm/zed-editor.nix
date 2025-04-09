@@ -1,13 +1,13 @@
 {
   config,
-  inputs,
+  # inputs,
   lib,
   ...
 }:
 with lib;
 let
   cfg = config.programs.zed-editor;
-  hmLib = inputs.home-manager.lib;
+  # hmLib = inputs.home-manager.lib;
 in
 {
   options = {

@@ -36,27 +36,5 @@ in
       ./themes/AyuQ.json
       ./themes/MonolithHighlighted.json
     ];
-
-    # extensions = [
-    #   "basher"
-    #   "dockerfile"
-    #   "env"
-    #   "git-firefly"
-    #   "html"
-    #   "ini"
-    #   "justfile"
-    #   "lua"
-    #   "make"
-    #   "markdown-oxide"
-    #   "marksman"
-    #   "nix"
-    #   "oh-lucy"
-    #   "panda-theme"
-    #   "pylsp"
-    #   "superhtml"
-    #   "swift"
-    #   "symbols"
-    #   "toml"
-    # ];
   };
 }
