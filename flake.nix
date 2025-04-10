@@ -85,7 +85,7 @@
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
     nixos-apple-silicon = {
-      url = "github:tpwrules/nixos-apple-silicon";
+      url = "github:oliverbestmann/nixos-apple-silicon";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
