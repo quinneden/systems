@@ -32,6 +32,7 @@
       "tailscale"
       "utm"
       "vagrant"
+      "zed@preview"
     ];
 
     brews = [
@@ -80,7 +81,6 @@
       "make"
       "mas"
       "meson"
-      "micro"
       "most"
       "ncdu"
       "node"
@@ -90,6 +90,7 @@
       "perl"
       "pipenv"
       "pipx"
+      "pyenv"
       "pkg-config"
       "pnpm"
       "podman-compose"

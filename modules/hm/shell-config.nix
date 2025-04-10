@@ -17,7 +17,7 @@ let
     ll = "eza -glAh --octal-permissions --group-directories-first";
     ls = "eza -A";
     push = "git push";
-    zed = "zeditor";
+    zed = "zed-preview";
   };
 
   commonVariables = {
@@ -59,10 +59,6 @@ with lib;
 {
   options.shellConfig = {
     enable = mkEnableOption "enable my personal shell configuration.";
-    # isDarwin = mkOption {
-    #   type = lib.types.bool;
-    #   default = false;
-    # };
     bash = {
       enable = mkEnableOption "enable bash configuration." // {
         default = false;

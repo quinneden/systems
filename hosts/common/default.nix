@@ -29,14 +29,19 @@ in
     users.quinn = import ../../home;
   };
 
+  environment.etc = lib.mapAttrs' (name: value: {
+    name = "nix/path/${name}";
+    value.source = value.flake;
+  }) config.nix.registry;
+
   nix = {
     enable = true;
-    channel.enable = false;
     distributedBuilds = true;
-    nixPath = [ "nixpkgs=flake:nixpkgs" ];
-    optimise = {
-      automatic = true;
-    };
+    nixPath = [ "/etc/nix/path" ];
+    optimise.automatic = true;
+    registry = lib.mapAttrs (_: flake: { inherit flake; }) (
+      lib.filterAttrs (_: lib.isType "flake") inputs
+    );
     settings = {
       accept-flake-config = true;
       access-tokens = [ "github=@${config.sops.secrets.github_token.path}" ];
@@ -66,7 +71,6 @@ in
     config.allowUnfree = true;
 
     overlays = [
-      inputs.acmsg.overlays.default
       inputs.shellpers.overlays.default
       self.overlays.default
     ];

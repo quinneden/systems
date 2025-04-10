@@ -1,5 +1,4 @@
 {
-  config,
   inputs,
   lib,
   pkgs,
@@ -8,39 +7,35 @@
 {
   imports = (lib.custom.scanPaths ./.) ++ (with inputs; [ mac-app-util.homeManagerModules.default ]);
 
-  home.packages = with pkgs; [
-    ks
-    vesktop
-  ];
-
-  programs = {
-    man.enable = true;
-
-    direnv = {
-      enable = true;
-      nix-direnv.enable = true;
-      enableZshIntegration = true;
-    };
-
-    ssh = {
-      enable = true;
-      addKeysToAgent = "yes";
-      includes = [ "config.d/*.conf" ];
-      matchBlocks = {
-        "oc-runner" = {
-          hostname = "129.146.66.178";
-          user = "root";
-          identityFile = config.sops.secrets."private_keys/oc-runner".path;
-        };
-
-        "picache" = {
-          hostname = "10.0.0.101";
-          user = "qeden";
-        };
-
-        "macmini-m1".hostname = "10.0.0.235";
-        "nixos-macmini".hostname = "10.0.0.243";
-      };
-    };
-  };
+  home.packages =
+    with pkgs;
+    # let
+    #   pythonEnv = pkgs.python3.withPackages (
+    #     ps: with ps; [
+    #       beautifulsoup4
+    #       boto3
+    #       colorama
+    #       ipykernel
+    #       ipython
+    #       jedi
+    #       pip
+    #       pycodestyle
+    #       pyflakes
+    #       pytest
+    #       pyyaml
+    #       requests
+    #       rope
+    #       yapf
+    #     ]
+    #   );
+    # in
+    [
+      markdown-oxide
+      marksman
+      nixd
+      nixfmt-rfc-style
+      # pythonEnv
+      superhtml
+      vesktop
+    ];
 }

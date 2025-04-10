@@ -21,7 +21,7 @@ let
 in
 {
   programs.zed-editor = {
-    enable = true;
+    enable = pkgs.stdenv.isLinux;
 
     extraPackages = with pkgs; [
       markdown-oxide

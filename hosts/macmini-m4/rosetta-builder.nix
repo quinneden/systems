@@ -12,12 +12,16 @@
       nix = {
         optimise.automatic = true;
         settings = {
-          access-tokens = [ "github=@${config.sops.secrets.github_token.path}" ];
-          extra-substituters = [ "https://quinneden.cachix.org" ];
-          extra-trusted-public-keys = [
-            "quinneden.cachix.org-1:1iSAVU2R8SYzxTv3Qq8j6ssSPf0Hz+26gfgXkvlcbuA="
-          ];
-          warn-dirty = false;
+          inherit (config.nix.settings)
+            access-tokens
+            extra-substituters
+            extra-trusted-public-keys
+            warn-dirty
+            ;
+          # access-tokens = [ "github=@${config.sops.secrets.github_token.path}" ];
+          # extra-substituters = config.nix.settings.extra-substituters;
+          # extra-trusted-public-keys = config.nix.settings.extra-trusted-public-keys;
+          # warn-dirty = false;
         };
       };
     };

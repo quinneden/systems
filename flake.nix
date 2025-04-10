@@ -55,7 +55,6 @@
     };
 
   inputs = {
-    acmsg.url = "github:quinneden/acmsg";
     apple-fonts.url = "github:Lyndeno/apple-fonts.nix";
 
     home-manager = {
