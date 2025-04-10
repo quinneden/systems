@@ -30,7 +30,6 @@ let
   fontSize = toString config.stylix.fonts.sizes.desktop;
 in
 {
-
   imports = [ inputs.hyprpanel.homeManagerModules.hyprpanel ];
 
   programs.hyprpanel = {
@@ -38,7 +37,8 @@ in
     hyprland.enable = true;
     overwrite.enable = true;
     overlay.enable = true;
-    layout = {
+    systemd.enable = true;
+    layouts = {
       "bar.layouts" = {
         "0" = {
           "left" = [
