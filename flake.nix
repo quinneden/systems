@@ -64,7 +64,12 @@
 
     hyprcursor-phinger.url = "github:jappie3/hyprcursor-phinger";
     hyprland.url = "github:hyprwm/hyprland";
-    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
+
+    hyprpanel = {
+      url = "github:Jas-SinghFSU/HyprPanel";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
 
     lix-module = {
