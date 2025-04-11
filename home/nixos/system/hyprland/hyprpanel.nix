@@ -38,7 +38,7 @@ in
     overwrite.enable = true;
     overlay.enable = true;
     systemd.enable = true;
-    layouts = {
+    layout = {
       "bar.layouts" = {
         "0" = {
           "left" = [
