@@ -30,7 +30,7 @@ let
   fontSize = toString config.stylix.fonts.sizes.desktop;
 in
 {
-  imports = [ inputs.hyprpanel.homeManagerModules.hyprpanel ];
+  # imports = [ inputs.hyprpanel.homeManagerModules.hyprpanel ];
 
   programs.hyprpanel = {
     enable = true;
