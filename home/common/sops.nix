@@ -9,7 +9,7 @@ let
 in
 {
   sops = {
-    defaultSopsFile = "${secretsPath}/secrets.yaml";
+    defaultSopsFile = "${secretsPath}/default.yaml";
     validateSopsFiles = false;
 
     age = {
