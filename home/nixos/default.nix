@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
   imports = (lib.custom.scanPaths ./.) ++ [
     ../../modules/nixos
@@ -10,4 +10,9 @@
     vscode.enable = false;
     zed.enable = false;
   };
+
+  home.programs = with pkgs; [
+    fzf
+    ripgrep
+  ];
 }

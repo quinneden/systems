@@ -23,26 +23,25 @@ in
   programs.hyprcursor-phinger.enable = true;
 
   home.packages = with pkgs; [
+    brightnessctl
+    dconf
+    glib
+    gnome-themes-extra
+    hyprpicker
+    hyprshot
+    imv
+    libsForQt5.qt5ct
+    libva
+    meson
     qt5.qtwayland
     qt6.qtwayland
-    libsForQt5.qt5ct
     qt6ct
-    hyprshot
-    hyprpicker
     swappy
-    imv
-    wf-recorder
-    wlr-randr
-    wl-clipboard
-    brightnessctl
-    gnome-themes-extra
-    libva
-    dconf
-    wayland-utils
     wayland-protocols
-    glib
-    direnv
-    meson
+    wayland-utils
+    wf-recorder
+    wl-clipboard
+    wlr-randr
   ];
 
   wayland.windowManager.hyprland = {
@@ -61,7 +60,7 @@ in
 
       monitor = [
         "HDMI-A-1,2560x1440@144,auto,1"
-        ",prefered,auto,1"
+        # ",prefered,auto,1"
       ];
 
       env = [
@@ -86,8 +85,6 @@ in
         "WLR_RENDERER,vulkan"
         "XDG_CURRENT_DESKTOP,Hyprland"
         "XDG_SESSION_DESKTOP,Hyprland"
-        "XDG_SESSION_TYPE,wayland"
-        "XDG_SESSION_TYPE,wayland"
         "XDG_SESSION_TYPE,wayland"
       ];
 
