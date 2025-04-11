@@ -1931,10 +1931,10 @@
         "nixpkgs": "nixpkgs_13"
       },
       "locked": {
-        "lastModified": 1744109115,
-        "narHash": "sha256-ESgtKwae47JyrnEdebhgLhpTihzSt+U5WThNkg4heAI=",
+        "lastModified": 1744352029,
+        "narHash": "sha256-Dk8gkDgkvXJN8PHKTP3uBmE+ulaH/gz5CM2q//naY1U=",
         "ref": "main",
-        "rev": "f6e8a02c84b678e87eca2958b2101d35a3a4feec",
+        "rev": "8b12a44e206aa723e98452c15cd6338fe1d923ad",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/quinneden/secrets.git"

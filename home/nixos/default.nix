@@ -11,7 +11,7 @@
     zed.enable = false;
   };
 
-  home.programs = with pkgs; [
+  home.packages = with pkgs; [
     fzf
     ripgrep
   ];
