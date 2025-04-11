@@ -18,10 +18,7 @@ let
 in
 {
 
-  imports = (lib.custom.scanPaths ./.) ++ [
-    inputs.hyprcursor-phinger.homeManagerModules.default
-    inputs.hyprpanel.homeManagerModules.hyprpanel
-  ];
+  imports = (lib.custom.scanPaths ./.) ++ [ inputs.hyprcursor-phinger.homeManagerModules.default ];
 
   programs.hyprcursor-phinger.enable = true;
 

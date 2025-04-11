@@ -30,7 +30,7 @@ let
   fontSize = toString config.stylix.fonts.sizes.desktop;
 in
 {
-  # imports = [ inputs.hyprpanel.homeManagerModules.hyprpanel ];
+  imports = [ inputs.hyprpanel.homeManagerModules.hyprpanel ];
 
   programs.hyprpanel = {
     enable = true;
@@ -38,153 +38,333 @@ in
     overwrite.enable = true;
     overlay.enable = true;
     systemd.enable = true;
-    layout = {
-      "bar.layouts" = {
-        "0" = {
-          "left" = [
-            "dashboard"
-            "workspaces"
-            "windowtitle"
-          ];
-          "middle" = [ "clock" ];
-          "right" = [
-            "systray"
-            "volume"
-            "bluetooth"
-            "network"
-            "notifications"
-          ];
+    settings = {
+      bar = {
+        bluetooth.label = false;
+        clock.format = "%a, %B%_e %_l:%M %p";
+        customModules.updates.pollingInterval = 1440000;
+        launcher.icon = "";
+        media.show_active_only = true;
+        network.truncation_size = 12;
+        notifications.show_total = true;
+        volume.label = false;
+        windowtitle.label = true;
+        workspaces = {
+          applicationIconEmptyWorkspace = "";
+          hideUnoccupied = true;
+          monitorSpecific = false;
+          numbered_active_indicator = "color";
+          show_numbered = false;
+          showApplicationIcons = true;
+          showWsIcons = true;
+          workspaces = 5;
         };
       };
+
+      layout = {
+        "bar.layouts" = {
+          "0" = {
+            "left" = [
+              "dashboard"
+              "workspaces"
+              "windowtitle"
+            ];
+            "middle" = [ "clock" ];
+            "right" = [
+              "systray"
+              "volume"
+              "bluetooth"
+              "network"
+              "notifications"
+            ];
+          };
+        };
+      };
+
+      menus = {
+        clock.weather = {
+          location = "${location}";
+          unit = "imperial";
+        };
+        dashboard = {
+          powermenu.confirmation = false;
+          shortcuts.left = {
+            shortcut1 = {
+              command = "zen";
+              icon = "";
+              tooltip = "Zen";
+            };
+            shortcut2 = {
+              command = "caffeine";
+              icon = "󰅶";
+              tooltip = "Caffeine";
+            };
+            shortcut3 = {
+              command = "night-shift";
+              icon = "󰖔";
+              tooltip = "Night-shift";
+            };
+            shortcut4 = {
+              command = "menu";
+              icon = "";
+              tooltip = "Search Apps";
+            };
+          };
+          shortcuts.right = {
+            shortcut1 = {
+              command = "hyprpicker -a";
+              icon = "";
+              tooltip = "Color Picker";
+            };
+          };
+        };
+      };
+
+      theme = {
+        bar = {
+          background = background + (lib.optionalString (transparentButtons && transparent) "00");
+          border_radius = "${toString rounding}px";
+          buttons = {
+            background =
+              (if transparent then background else background-alt) + (lib.optionalString transparentButtons "00");
+            hover = background;
+            icon = accent;
+            monochrome = true;
+            notifications = {
+              background = background-alt;
+              hover = background;
+              icon = accent;
+              total = accent;
+            };
+            padding_x = "0.8rem";
+            padding_y = "0.4rem";
+            radius = "${if transparent then toString rounding else toString (rounding - 8)}px";
+            spacing = "0.3em";
+            style = "default";
+            text = foreground;
+            workspaces = {
+              active = accent;
+              available = accent-alt;
+              hover = accent-alt;
+              occupied = accent-alt;
+            };
+            y_margins = "${if floating && transparent then "0" else "8"}px";
+          };
+          dropdownGap = "4.0em";
+          floating = floating;
+          location = position;
+          margin_bottom = "${if position == "top" then "0" else toString (gaps-in * 1.5)}px";
+          margin_sides = "${toString (gaps-out - 2)}px";
+          margin_top = "${if position == "top" then toString (gaps-in * 1.5) else "0"}px";
+          menus = {
+            background = background;
+            border = {
+              color = accent;
+              radius = "${toString rounding}px";
+              size = "${toString border-size}px";
+            };
+            buttons = {
+              active = accent;
+              default = accent;
+            };
+            card_radius = "${toString rounding}px";
+            cards = background-alt;
+            check_radio_button.active = accent;
+            dropdownmenu = {
+              background = background-alt;
+              text = foreground;
+            };
+            iconbuttons.active = accent;
+            icons.active = accent;
+            label = foreground;
+            listitems.active = accent;
+            menu.media = {
+              background.color = background-alt;
+              card.color = background-alt;
+              card.tint = 90;
+            };
+            monochrome = true;
+            popover = {
+              background = background-alt;
+              text = foreground;
+            };
+            progressbar.foreground = accent;
+            slider.primary = accent;
+            switch.enabled = accent;
+            text = foreground;
+            tooltip = {
+              background = background-alt;
+              text = foreground;
+            };
+          };
+          outer_spacing = "${if floating && transparent then "0" else "8"}px";
+          transparent = transparent;
+        };
+
+        font = {
+          name = "${font}";
+          size = "${fontSize}px";
+        };
+
+        notification = {
+          actions = {
+            background = accent;
+            text = foreground;
+          };
+          background = background-alt;
+          border_radius = "${toString rounding}px";
+          border = background-alt;
+          label = accent;
+          labelicon = accent;
+          text = foreground;
+        };
+
+        osd = {
+          bar_color = accent;
+          bar_container = background-alt;
+          bar_overflow_color = accent-alt;
+          enable = true;
+          icon_container = accent;
+          icon = background;
+          label = accent;
+          location = "left";
+          margins = "0px 0px 0px 10px";
+          muted_zero = true;
+          orientation = "vertical";
+          radius = "${toString rounding}px";
+        };
+      };
+
+      wallpaper.enable = false;
     };
 
-    override = {
-      "bar.bluetooth.label" = false;
-      "bar.clock.format" = "%a, %B%_e %_l:%M %p";
-      "bar.customModules.updates.pollingInterval" = 1440000;
-      "bar.launcher.icon" = "";
-      "bar.media.show_active_only" = true;
-      "bar.network.truncation_size" = 12;
-      "bar.notifications.show_total" = true;
-      "bar.volume.label" = false;
-      "bar.windowtitle.label" = true;
-      "bar.workspaces.applicationIconEmptyWorkspace" = "";
-      "bar.workspaces.hideUnoccupied" = true;
-      "bar.workspaces.monitorSpecific" = false;
-      "bar.workspaces.numbered_active_indicator" = "color";
-      "bar.workspaces.show_numbered" = false;
-      "bar.workspaces.showApplicationIcons" = true;
-      "bar.workspaces.showWsIcons" = true;
-      "bar.workspaces.workspaces" = 5;
+    # override = {
+    #   "bar.bluetooth.label" = false;
+    #   "bar.clock.format" = "%a, %B%_e %_l:%M %p";
+    #   "bar.customModules.updates.pollingInterval" = 1440000;
+    #   "bar.launcher.icon" = "";
+    #   "bar.media.show_active_only" = true;
+    #   "bar.network.truncation_size" = 12;
+    #   "bar.notifications.show_total" = true;
+    #   "bar.volume.label" = false;
+    #   "bar.windowtitle.label" = true;
+    #   "bar.workspaces.applicationIconEmptyWorkspace" = "";
+    #   "bar.workspaces.hideUnoccupied" = true;
+    #   "bar.workspaces.monitorSpecific" = false;
+    #   "bar.workspaces.numbered_active_indicator" = "color";
+    #   "bar.workspaces.show_numbered" = false;
+    #   "bar.workspaces.showApplicationIcons" = true;
+    #   "bar.workspaces.showWsIcons" = true;
+    #   "bar.workspaces.workspaces" = 5;
 
-      "menus.clock.weather.location" = "${location}";
-      "menus.clock.weather.unit" = "imperial";
-      "menus.dashboard.powermenu.confirmation" = false;
-      "menus.dashboard.shortcuts.left.shortcut1.command" = "zen";
-      "menus.dashboard.shortcuts.left.shortcut1.icon" = "";
-      "menus.dashboard.shortcuts.left.shortcut1.tooltip" = "Zen";
-      "menus.dashboard.shortcuts.left.shortcut2.command" = "caffeine";
-      "menus.dashboard.shortcuts.left.shortcut2.icon" = "󰅶";
-      "menus.dashboard.shortcuts.left.shortcut2.tooltip" = "Caffeine";
-      "menus.dashboard.shortcuts.left.shortcut3.command" = "night-shift";
-      "menus.dashboard.shortcuts.left.shortcut3.icon" = "󰖔";
-      "menus.dashboard.shortcuts.left.shortcut3.tooltip" = "Night-shift";
-      "menus.dashboard.shortcuts.left.shortcut4.command" = "menu";
-      "menus.dashboard.shortcuts.left.shortcut4.icon" = "";
-      "menus.dashboard.shortcuts.left.shortcut4.tooltip" = "Search Apps";
-      "menus.dashboard.shortcuts.right.shortcut1.command" = "hyprpicker -a";
-      "menus.dashboard.shortcuts.right.shortcut1.icon" = "";
-      "menus.dashboard.shortcuts.right.shortcut1.tooltip" = "Color Picker";
-      # "menus.dashboard.shortcuts.right.shortcut3.command" = "screenshot region swappy";
-      # "menus.dashboard.shortcuts.right.shortcut3.icon" = "󰄀";
-      # "menus.dashboard.shortcuts.right.shortcut3.tooltip" = "Screenshot";
+    #   "menus.clock.weather.location" = "${location}";
+    #   "menus.clock.weather.unit" = "imperial";
+    #   "menus.dashboard.powermenu.confirmation" = false;
+    #   "menus.dashboard.shortcuts.left.shortcut1.command" = "zen";
+    #   "menus.dashboard.shortcuts.left.shortcut1.icon" = "";
+    #   "menus.dashboard.shortcuts.left.shortcut1.tooltip" = "Zen";
+    #   "menus.dashboard.shortcuts.left.shortcut2.command" = "caffeine";
+    #   "menus.dashboard.shortcuts.left.shortcut2.icon" = "󰅶";
+    #   "menus.dashboard.shortcuts.left.shortcut2.tooltip" = "Caffeine";
+    #   "menus.dashboard.shortcuts.left.shortcut3.command" = "night-shift";
+    #   "menus.dashboard.shortcuts.left.shortcut3.icon" = "󰖔";
+    #   "menus.dashboard.shortcuts.left.shortcut3.tooltip" = "Night-shift";
+    #   "menus.dashboard.shortcuts.left.shortcut4.command" = "menu";
+    #   "menus.dashboard.shortcuts.left.shortcut4.icon" = "";
+    #   "menus.dashboard.shortcuts.left.shortcut4.tooltip" = "Search Apps";
+    #   "menus.dashboard.shortcuts.right.shortcut1.command" = "hyprpicker -a";
+    #   "menus.dashboard.shortcuts.right.shortcut1.icon" = "";
+    #   "menus.dashboard.shortcuts.right.shortcut1.tooltip" = "Color Picker";
+    #   # "menus.dashboard.shortcuts.right.shortcut3.command" = "screenshot region swappy";
+    #   # "menus.dashboard.shortcuts.right.shortcut3.icon" = "󰄀";
+    #   # "menus.dashboard.shortcuts.right.shortcut3.tooltip" = "Screenshot";
 
-      "theme.bar.background" = background + (lib.optionalString (transparentButtons && transparent) "00");
-      "theme.bar.border_radius" = "${toString rounding}px";
-      "theme.bar.buttons.background" =
-        (if transparent then background else background-alt) + (lib.optionalString transparentButtons "00");
-      "theme.bar.buttons.hover" = background;
-      "theme.bar.buttons.icon" = accent;
-      "theme.bar.buttons.monochrome" = true;
-      "theme.bar.buttons.notifications.background" = background-alt;
-      "theme.bar.buttons.notifications.hover" = background;
-      "theme.bar.buttons.notifications.icon" = accent;
-      "theme.bar.buttons.notifications.total" = accent;
-      "theme.bar.buttons.padding_x" = "0.8rem";
-      "theme.bar.buttons.padding_y" = "0.4rem";
-      "theme.bar.buttons.radius" = "${
-        if transparent then toString rounding else toString (rounding - 8)
-      }px";
-      "theme.bar.buttons.spacing" = "0.3em";
-      "theme.bar.buttons.style" = "default";
-      "theme.bar.buttons.text" = foreground;
-      "theme.bar.buttons.workspaces.active" = accent;
-      "theme.bar.buttons.workspaces.available" = accent-alt;
-      "theme.bar.buttons.workspaces.hover" = accent-alt;
-      "theme.bar.buttons.workspaces.occupied" = accent-alt;
-      "theme.bar.buttons.y_margins" = "${if floating && transparent then "0" else "8"}px";
-      "theme.bar.dropdownGap" = "4.0em";
-      "theme.bar.floating" = floating;
-      "theme.bar.location" = position;
-      "theme.bar.margin_bottom" = "${if position == "top" then "0" else toString (gaps-in * 1.5)}px";
-      "theme.bar.margin_sides" = "${toString (gaps-out - 2)}px";
-      "theme.bar.margin_top" = "${if position == "top" then toString (gaps-in * 1.5) else "0"}px";
-      "theme.bar.menus.background" = background;
-      "theme.bar.menus.border.color" = accent;
-      "theme.bar.menus.border.radius" = "${toString rounding}px";
-      "theme.bar.menus.border.size" = "${toString border-size}px";
-      "theme.bar.menus.buttons.active" = accent;
-      "theme.bar.menus.buttons.default" = accent;
-      "theme.bar.menus.card_radius" = "${toString rounding}px";
-      "theme.bar.menus.cards" = background-alt;
-      "theme.bar.menus.check_radio_button.active" = accent;
-      "theme.bar.menus.dropdownmenu.background" = background-alt;
-      "theme.bar.menus.dropdownmenu.text" = foreground;
-      "theme.bar.menus.iconbuttons.active" = accent;
-      "theme.bar.menus.icons.active" = accent;
-      "theme.bar.menus.label" = foreground;
-      "theme.bar.menus.listitems.active" = accent;
-      "theme.bar.menus.menu.media.background.color" = background-alt;
-      "theme.bar.menus.menu.media.card.color" = background-alt;
-      "theme.bar.menus.menu.media.card.tint" = 90;
-      "theme.bar.menus.monochrome" = true;
-      "theme.bar.menus.popover.background" = background-alt;
-      "theme.bar.menus.popover.text" = foreground;
-      "theme.bar.menus.progressbar.foreground" = accent;
-      "theme.bar.menus.slider.primary" = accent;
-      "theme.bar.menus.switch.enabled" = accent;
-      "theme.bar.menus.text" = foreground;
-      "theme.bar.menus.tooltip.background" = background-alt;
-      "theme.bar.menus.tooltip.text" = foreground;
-      "theme.bar.outer_spacing" = "${if floating && transparent then "0" else "8"}px";
-      "theme.bar.transparent" = transparent;
+    #   "theme.bar.background" = background + (lib.optionalString (transparentButtons && transparent) "00");
+    #   "theme.bar.border_radius" = "${toString rounding}px";
+    #   "theme.bar.buttons.background" =
+    #     (if transparent then background else background-alt) + (lib.optionalString transparentButtons "00");
+    #   "theme.bar.buttons.hover" = background;
+    #   "theme.bar.buttons.icon" = accent;
+    #   "theme.bar.buttons.monochrome" = true;
+    #   "theme.bar.buttons.notifications.background" = background-alt;
+    #   "theme.bar.buttons.notifications.hover" = background;
+    #   "theme.bar.buttons.notifications.icon" = accent;
+    #   "theme.bar.buttons.notifications.total" = accent;
+    #   "theme.bar.buttons.padding_x" = "0.8rem";
+    #   "theme.bar.buttons.padding_y" = "0.4rem";
+    #   "theme.bar.buttons.radius" = "${
+    #     if transparent then toString rounding else toString (rounding - 8)
+    #   }px";
+    #   "theme.bar.buttons.spacing" = "0.3em";
+    #   "theme.bar.buttons.style" = "default";
+    #   "theme.bar.buttons.text" = foreground;
+    #   "theme.bar.buttons.workspaces.active" = accent;
+    #   "theme.bar.buttons.workspaces.available" = accent-alt;
+    #   "theme.bar.buttons.workspaces.hover" = accent-alt;
+    #   "theme.bar.buttons.workspaces.occupied" = accent-alt;
+    #   "theme.bar.buttons.y_margins" = "${if floating && transparent then "0" else "8"}px";
+    #   "theme.bar.dropdownGap" = "4.0em";
+    #   "theme.bar.floating" = floating;
+    #   "theme.bar.location" = position;
+    #   "theme.bar.margin_bottom" = "${if position == "top" then "0" else toString (gaps-in * 1.5)}px";
+    #   "theme.bar.margin_sides" = "${toString (gaps-out - 2)}px";
+    #   "theme.bar.margin_top" = "${if position == "top" then toString (gaps-in * 1.5) else "0"}px";
+    #   "theme.bar.menus.background" = background;
+    #   "theme.bar.menus.border.color" = accent;
+    #   "theme.bar.menus.border.radius" = "${toString rounding}px";
+    #   "theme.bar.menus.border.size" = "${toString border-size}px";
+    #   "theme.bar.menus.buttons.active" = accent;
+    #   "theme.bar.menus.buttons.default" = accent;
+    #   "theme.bar.menus.card_radius" = "${toString rounding}px";
+    #   "theme.bar.menus.cards" = background-alt;
+    #   "theme.bar.menus.check_radio_button.active" = accent;
+    #   "theme.bar.menus.dropdownmenu.background" = background-alt;
+    #   "theme.bar.menus.dropdownmenu.text" = foreground;
+    #   "theme.bar.menus.iconbuttons.active" = accent;
+    #   "theme.bar.menus.icons.active" = accent;
+    #   "theme.bar.menus.label" = foreground;
+    #   "theme.bar.menus.listitems.active" = accent;
+    #   "theme.bar.menus.menu.media.background.color" = background-alt;
+    #   "theme.bar.menus.menu.media.card.color" = background-alt;
+    #   "theme.bar.menus.menu.media.card.tint" = 90;
+    #   "theme.bar.menus.monochrome" = true;
+    #   "theme.bar.menus.popover.background" = background-alt;
+    #   "theme.bar.menus.popover.text" = foreground;
+    #   "theme.bar.menus.progressbar.foreground" = accent;
+    #   "theme.bar.menus.slider.primary" = accent;
+    #   "theme.bar.menus.switch.enabled" = accent;
+    #   "theme.bar.menus.text" = foreground;
+    #   "theme.bar.menus.tooltip.background" = background-alt;
+    #   "theme.bar.menus.tooltip.text" = foreground;
+    #   "theme.bar.outer_spacing" = "${if floating && transparent then "0" else "8"}px";
+    #   "theme.bar.transparent" = transparent;
 
-      "theme.font.name" = "${font}";
-      "theme.font.size" = "${fontSize}px";
+    #   "theme.font.name" = "${font}";
+    #   "theme.font.size" = "${fontSize}px";
 
-      "theme.notification.actions.background" = accent;
-      "theme.notification.actions.text" = foreground;
-      "theme.notification.background" = background-alt;
-      "theme.notification.border_radius" = "${toString rounding}px";
-      "theme.notification.border" = background-alt;
-      "theme.notification.label" = accent;
-      "theme.notification.labelicon" = accent;
-      "theme.notification.text" = foreground;
+    #   "theme.notification.actions.background" = accent;
+    #   "theme.notification.actions.text" = foreground;
+    #   "theme.notification.background" = background-alt;
+    #   "theme.notification.border_radius" = "${toString rounding}px";
+    #   "theme.notification.border" = background-alt;
+    #   "theme.notification.label" = accent;
+    #   "theme.notification.labelicon" = accent;
+    #   "theme.notification.text" = foreground;
 
-      "theme.osd.bar_color" = accent;
-      "theme.osd.bar_container" = background-alt;
-      "theme.osd.bar_overflow_color" = accent-alt;
-      "theme.osd.enable" = true;
-      "theme.osd.icon_container" = accent;
-      "theme.osd.icon" = background;
-      "theme.osd.label" = accent;
-      "theme.osd.location" = "left";
-      "theme.osd.margins" = "0px 0px 0px 10px";
-      "theme.osd.muted_zero" = true;
-      "theme.osd.orientation" = "vertical";
-      "theme.osd.radius" = "${toString rounding}px";
+    #   "theme.osd.bar_color" = accent;
+    #   "theme.osd.bar_container" = background-alt;
+    #   "theme.osd.bar_overflow_color" = accent-alt;
+    #   "theme.osd.enable" = true;
+    #   "theme.osd.icon_container" = accent;
+    #   "theme.osd.icon" = background;
+    #   "theme.osd.label" = accent;
+    #   "theme.osd.location" = "left";
+    #   "theme.osd.margins" = "0px 0px 0px 10px";
+    #   "theme.osd.muted_zero" = true;
+    #   "theme.osd.orientation" = "vertical";
+    #   "theme.osd.radius" = "${toString rounding}px";
 
-      "wallpaper.enable" = false;
-    };
+    #   "wallpaper.enable" = false;
+    # };
   };
 }
