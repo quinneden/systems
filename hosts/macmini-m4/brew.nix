@@ -98,6 +98,7 @@
       "podman"
       "pv"
       "qemu"
+      "rbenv"
       "rclone"
       "rich"
       "ripgrep"

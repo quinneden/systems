@@ -26,10 +26,4 @@
 
     stateVersion = "25.05";
   };
-
-  shellConfig = {
-    enable = true;
-    bash.enable = true;
-    zsh.enable = true;
-  };
 }
