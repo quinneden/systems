@@ -5,9 +5,9 @@
     gaps-in = 4;
     gaps-out = gaps-in * 1.5;
     active-opacity = 1;
-    inactive-opacity = 0.96;
+    inactive-opacity = 0.88;
     blur = true;
-    border-size = 2;
+    border-size = 1;
     animation-speed = "medium"; # "fast" | "medium" | "slow"
     fetch = "neofetch"; # "nerdfetch" | "neofetch" | "pfetch" | "none"
     bar = {

@@ -22,6 +22,7 @@ in
 {
   programs.zed-editor = {
     enable = pkgs.stdenv.isLinux;
+    package = pkgs.zed-editor-fhs;
 
     extraPackages = with pkgs; [
       markdown-oxide

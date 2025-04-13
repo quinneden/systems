@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 {
   imports = (lib.custom.scanPaths ./.) ++ [
     ../../modules/nixos
@@ -6,12 +11,14 @@
   ];
 
   stylix.targets = {
-    micro.enable = false;
+    micro.enable = true;
     vscode.enable = false;
     zed.enable = false;
   };
 
   home.packages = with pkgs; [
+    inputs.acmsg.packages.${pkgs.system}.acmsg
+    bat
     fzf
     ripgrep
   ];

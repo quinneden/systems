@@ -13,7 +13,7 @@
             owner = "quinneden";
             repo = "pure";
             rev = "refs/heads/nix3-shell-prompt";
-            hash = "sha256-dv2neCnIGaIJm0ez9O9VORaDSJ4O9GAegwgo5G7rWeA=";
+            hash = "sha256-6xLBcJEi31RBEt9tfHumeiS8D195SK5ZWqZ6bzxH3Vc=";
           };
         };
 

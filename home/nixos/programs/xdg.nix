@@ -1,19 +1,17 @@
 { pkgs, ... }:
 {
   xdg.portal = {
-    enable = true;
-    config.common.default = "*";
-    wlr.enable = false;
+    # enable = true;
     xdgOpenUsePortal = true;
     extraPortals = with pkgs; [
       xdg-desktop-portal
-      xdg-desktop-portal-hyprland
       xdg-desktop-portal-gtk
       xdg-desktop-portal-wlr
+      xdg-desktop-portal-hyprland
     ];
   };
 
-  environment.systemPackages = with pkgs; [
+  home.packages = with pkgs; [
     xdg-dbus-proxy
     xdg-utils
   ];

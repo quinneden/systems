@@ -29,15 +29,15 @@ in
     users.quinn = import ../../home;
   };
 
-  environment.etc = lib.mapAttrs' (name: value: {
-    name = "nix/path/${name}";
-    value.source = value.flake;
-  }) config.nix.registry;
+  # environment.etc = lib.mapAttrs' (name: value: {
+  #   name = "nix/path/${name}";
+  #   value.source = value.flake;
+  # }) config.nix.registry;
 
   nix = {
     enable = true;
     distributedBuilds = true;
-    nixPath = [ "/etc/nix/path" ];
+    nixPath = [ "nixpkgs=flake:nixpkgs" ];
     optimise.automatic = true;
     registry = lib.mapAttrs (_: flake: { inherit flake; }) (
       lib.filterAttrs (_: lib.isType "flake") inputs

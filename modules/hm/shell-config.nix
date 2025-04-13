@@ -17,7 +17,6 @@ let
     ll = "eza -glAh --octal-permissions --group-directories-first";
     ls = "eza -A";
     push = "git push";
-    zed = "zed-preview";
   };
 
   commonVariables = {
@@ -34,6 +33,7 @@ let
     sed = "gsed";
     shutdown = "sudo shutdown -h now";
     darwin-man = "man configuration.nix";
+    zed = "zed-preview";
   };
 
   linuxAliases = {
@@ -41,6 +41,7 @@ let
     code = "codium";
     db = "distrobox";
     tree = "eza -ATL3 --git-ignore";
+    zed = "zeditor";
   };
 
   darwinVariables = {

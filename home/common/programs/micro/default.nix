@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }:
@@ -18,7 +19,7 @@
     settings = {
       autoclose = true;
       autosu = true;
-      colorscheme = "cuddles";
+      colorscheme = lib.optionalString pkgs.stdenv.isDarwin "cuddles";
       comment = true;
       diff = true;
       ftoptions = true;
