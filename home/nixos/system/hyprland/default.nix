@@ -7,32 +7,41 @@
   ...
 }:
 let
-  border-size = config.theme.border-size;
-  gaps-in = config.theme.gaps-in;
-  gaps-out = config.theme.gaps-out;
-  active-opacity = config.theme.active-opacity;
-  inactive-opacity = config.theme.inactive-opacity;
-  rounding = config.theme.rounding;
-  blur = config.theme.blur;
-  keyboardLayout = config.var.keyboardLayout;
+  inherit (config.theme)
+    active-opacity
+    blur
+    border-size
+    gaps-in
+    gaps-out
+    inactive-opacity
+    rounding
+    ;
+
+  inherit (config.var) keyboardLayout;
 in
 {
-
   imports = (lib.custom.scanPaths ./.) ++ [ inputs.hyprcursor-phinger.homeManagerModules.default ];
 
   programs.hyprcursor-phinger.enable = true;
 
   home.packages = with pkgs; [
+    ags
+    astal.astal3
+    astal.astal4
+    astal.io
     brightnessctl
     dconf
     glib
     gnome-themes-extra
     hyprpicker
+    hyprpolkitagent
     hyprshot
     imv
     libsForQt5.qt5ct
+    libgtop
     libva
     meson
+    playerctl
     qt5.qtwayland
     qt6.qtwayland
     qt6ct
@@ -41,21 +50,22 @@ in
     wayland-utils
     wf-recorder
     wl-clipboard
-    wlr-randr
   ];
 
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
-    systemd.enable = true;
-    package = inputs.hyprland.packages."${pkgs.system}".hyprland;
+    systemd.variables = [ "all" ];
+    package = null;
+    portalPackage = null;
 
     settings = {
       "$mod" = "SUPER";
-      "$shiftMod" = "SUPER_SHIFT";
+      "$modShift" = "SUPER_SHIFT";
 
       exec-once = [
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        "systemctl --user start hyprpolkitagent"
       ];
 
       monitor = [
@@ -71,7 +81,7 @@ in
         "DISABLE_QT5_COMPAT,0"
         "DISABLE_QT5_COMPAT,0"
         "ELECTRON_OZONE_PLATFORM_HINT,auto"
-        "GSK_RENDERER,ngl"
+        "GSK_RENDERER,vulkan"
         "GDK_BACKEND,wayland"
         "MOZ_ENABLE_WAYLAND,1"
         "NIXOS_OZONE_WL,1"
@@ -98,7 +108,7 @@ in
         gaps_in = gaps-in;
         gaps_out = gaps-out;
         border_size = border-size;
-        border_part_of_window = true;
+        # border_part_of_window = true;
         layout = "master";
       };
 
@@ -130,9 +140,13 @@ in
         vfr = true;
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
-        disable_autoreload = true;
+        disable_autoreload = false;
         focus_on_activate = true;
         new_window_takes_over_fullscreen = 2;
+      };
+
+      render = {
+        explicit_sync = 0;
       };
 
       windowrulev2 = [
@@ -148,15 +162,15 @@ in
 
       input = {
         kb_layout = keyboardLayout;
-
         kb_options = "caps:escape";
         follow_mouse = 1;
         sensitivity = 0.3;
-        repeat_delay = 300;
-        repeat_rate = 50;
+        repeat_delay = 250;
+        repeat_rate = 45;
         numlock_by_default = true;
 
         touchpad = {
+          disable_while_typing = false;
           natural_scroll = true;
           clickfinger_behavior = true;
         };

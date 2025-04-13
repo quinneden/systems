@@ -7,7 +7,9 @@
   stylix = {
     enable = true;
 
-    base16Scheme = pkgs.base16-schemes + "/share/themes/hardcore.yaml";
+    # colors = inputs.tinted-nix.schemes.base16.framer.palette;
+
+    base16Scheme = pkgs.base16-schemes + "/share/themes/framer.yaml";
 
     cursor = {
       package = pkgs.phinger-cursors;
@@ -23,12 +25,12 @@
 
       sansSerif = {
         package = inputs.apple-fonts.packages.${pkgs.system}.sf-pro-nerd;
-        name = "SFProDisplay Nerd Font";
+        name = "SFProText Nerd Font Regular";
       };
 
       serif = {
         package = inputs.apple-fonts.packages.${pkgs.system}.sf-pro-nerd;
-        name = "SFProDisplay Nerd Font";
+        name = "SFProText Nerd Font Regular";
       };
 
       emoji = {
@@ -37,9 +39,9 @@
       };
 
       sizes = {
-        applications = 14;
-        desktop = 13;
-        popups = 13;
+        applications = 13;
+        desktop = 14;
+        popups = 12;
         terminal = 13;
       };
     };
@@ -47,8 +49,8 @@
     polarity = "dark";
 
     image = pkgs.fetchurl {
-      url = "https://github.com/anotherhadi/nixy-wallpapers/blob/main/wallpapers/mountains-black.png?raw=true";
-      hash = "sha256-L5uGI6QNnlIrJJOzGHRhkYYb51JrVqFME1+LyTimUgs=";
+      url = "https://raw.githubusercontent.com/anotherhadi/nixy-wallpapers/refs/heads/main/wallpapers/black-moutains.png";
+      hash = "sha256-tKBdN4qUWa3F0kGJsOq/7999Z0YAx2k92Y+uWecMmt0=";
     };
   };
 }

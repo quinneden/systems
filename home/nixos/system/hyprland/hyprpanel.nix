@@ -2,21 +2,16 @@
   config,
   lib,
   inputs,
+  pkgs,
   ...
 }:
 let
-  inherit (config.theme.bar)
-    transparentButtons
-    floating
-    transparent
-    position
-    ;
-
   inherit (config.theme)
-    rounding
+    bar
     border-size
-    gaps-out
     gaps-in
+    gaps-out
+    rounding
     ;
 
   inherit (config.var) location;
@@ -41,7 +36,7 @@ in
 
     settings = {
       bar = {
-        autoHide = "never";
+        autoHide = "fullscreen";
         bluetooth.label = false;
         clock.format = "%a, %B%_e %_l:%M %p";
         customModules.updates.pollingInterval = 1440000;
@@ -131,28 +126,33 @@ in
       tear = true;
 
       theme = {
+        matugen = true;
+
         bar = {
           border_radius = "${toString rounding}px";
 
           buttons = {
             background_hover_opacity = 100;
             background_opacity = 100;
+            borderSize = "0.08rem";
+            enableBorders = true;
             monochrome = true;
             padding_x = "0.8rem";
             padding_y = "0.4rem";
-            radius = "${if transparent then toString rounding else toString (rounding - 8)}px";
+            # radius = "${if bar.transparent then toString rounding else toString (rounding - 8)}px";
+            radius = "14";
             spacing = "0.3em";
             style = "default";
-            y_margins = "${if floating && transparent then "0" else "8"}px";
+            y_margins = "${if bar.floating && bar.transparent then "0" else "8"}px";
           };
 
           dropdownGap = "4.0em";
-          floating = floating;
-          location = position;
+          floating = bar.floating;
+          location = bar.position;
 
-          margin_bottom = "${if position == "top" then "0" else toString (gaps-in * 1.5)}px";
+          margin_bottom = "${if bar.position == "top" then "0" else toString (gaps-in * 1.5)}px";
           margin_sides = "${toString (gaps-out - 2)}px";
-          margin_top = "${if position == "top" then toString (gaps-in * 1.5) else "0"}px";
+          margin_top = "${if bar.position == "top" then toString (gaps-in * 1.5) else "0"}px";
 
           menus = {
             border = {
@@ -164,8 +164,9 @@ in
             monochrome = true;
           };
 
-          outer_spacing = "${if floating && transparent then "0" else "8"}px";
-          transparent = transparent;
+          outer_spacing = "${if bar.floating && bar.transparent then "0" else "8"}px";
+          scaling = 85;
+          transparent = bar.transparent;
         };
 
         font = {
@@ -185,12 +186,20 @@ in
         };
       };
 
-      wallpaper.enable = false;
+      wallpaper = {
+        enable = true;
+        image =
+          (pkgs.fetchurl {
+            url = "https://raw.githubusercontent.com/anotherhadi/nixy-wallpapers/refs/heads/main/wallpapers/black-moutains.png";
+            hash = "sha256-tKBdN4qUWa3F0kGJsOq/7999Z0YAx2k92Y+uWecMmt0=";
+          }).outPath;
+      };
     };
 
     override = {
       "bar.workspaces.hideUnoccupied" = true;
-      "theme.bar.background" = background + (lib.optionalString (transparentButtons && transparent) "00");
+      "theme.bar.background" =
+        background + (lib.optionalString (bar.transparentButtons && bar.transparent) "00");
       "theme.bar.buttons.hover" = background;
       "theme.bar.buttons.icon" = accent;
       "theme.bar.buttons.notifications.background" = background-alt;

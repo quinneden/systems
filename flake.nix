@@ -55,6 +55,7 @@
     };
 
   inputs = {
+    acmsg.url = "github:quinneden/acmsg";
     apple-fonts.url = "github:Lyndeno/apple-fonts.nix";
 
     home-manager = {
@@ -63,14 +64,11 @@
     };
 
     hyprcursor-phinger.url = "github:jappie3/hyprcursor-phinger";
-    hyprland.url = "github:hyprwm/hyprland";
 
     hyprpanel = {
       url = "github:Jas-SinghFSU/HyprPanel";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
 
     lix-module = {
       url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0-3.tar.gz";
@@ -78,6 +76,7 @@
     };
 
     mac-app-util.url = "github:hraban/mac-app-util";
+    matugen.url = "github:/InioX/Matugen";
     nh.url = "github:viperml/nh";
 
     nix-darwin = {

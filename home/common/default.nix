@@ -12,6 +12,7 @@
 
     packages = with pkgs; [
       cachix
+      direnv
       eza
       gawk
       gnutar
