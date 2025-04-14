@@ -50,7 +50,6 @@
       "eza"
       "fd"
       "ffmpeg"
-      "fzf"
       "gcc"
       "gh"
       "git-crypt"

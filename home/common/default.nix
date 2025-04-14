@@ -14,6 +14,7 @@
       cachix
       direnv
       eza
+      fzf
       gawk
       gnutar
       inputs.shellpers.packages.${pkgs.system}.metapackage

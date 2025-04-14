@@ -6,38 +6,33 @@
   self,
   ...
 }:
-
 let
   platformModules = "${platform}Modules";
 in
-
 {
-  imports =
-    (lib.custom.scanPaths ./.)
-    ++ (with inputs; [
-      ../../modules/${platform}
-      home-manager.${platformModules}.default
-      lix-module.nixosModules.default
-      sops-nix.${platformModules}.default
-    ]);
+  imports = (lib.custom.scanPaths ./.) ++ [
+    ../../modules/${platform}
+    inputs.home-manager.${platformModules}.default
+    inputs.lix-module.nixosModules.default
+    inputs.sops-nix.${platformModules}.default
+  ];
 
   home-manager = {
-    backupFileExtension = "hmbak";
+    backupFileExtension = "hm-backup";
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs platform; };
     users.quinn = import ../../home;
   };
 
-  # environment.etc = lib.mapAttrs' (name: value: {
-  #   name = "nix/path/${name}";
-  #   value.source = value.flake;
-  # }) config.nix.registry;
-
   nix = {
     enable = true;
     distributedBuilds = true;
-    nixPath = [ "nixpkgs=flake:nixpkgs" ];
+    nixPath = [
+      "home-manager=${inputs.home-manager}"
+      "nix-darwin=${inputs.nix-darwin}"
+      "nixpkgs=${inputs.nixpkgs}"
+    ];
     optimise.automatic = true;
     registry = lib.mapAttrs (_: flake: { inherit flake; }) (
       lib.filterAttrs (_: lib.isType "flake") inputs
@@ -69,10 +64,6 @@ in
 
   nixpkgs = {
     config.allowUnfree = true;
-
-    overlays = [
-      inputs.shellpers.overlays.default
-      self.overlays.default
-    ];
+    overlays = [ self.overlays.default ];
   };
 }

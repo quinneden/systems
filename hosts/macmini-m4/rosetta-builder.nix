@@ -4,10 +4,8 @@
 
   nix-rosetta-builder = {
     enable = true;
-
     cores = 8;
     diskSize = "150GiB";
-
     extraConfig = {
       nix = {
         optimise.automatic = true;
@@ -18,14 +16,9 @@
             extra-trusted-public-keys
             warn-dirty
             ;
-          # access-tokens = [ "github=@${config.sops.secrets.github_token.path}" ];
-          # extra-substituters = config.nix.settings.extra-substituters;
-          # extra-trusted-public-keys = config.nix.settings.extra-trusted-public-keys;
-          # warn-dirty = false;
         };
       };
     };
-
     memory = "8GiB";
     onDemand = true;
     withRosetta = false;
