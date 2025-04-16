@@ -11,7 +11,7 @@
   ];
 
   stylix.targets = {
-    micro.enable = true;
+    micro.enable = false;
     vscode.enable = false;
     zed.enable = false;
   };

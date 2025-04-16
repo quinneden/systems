@@ -42,7 +42,7 @@
             owner = "tinted-theming";
             repo = "schemes";
             rev = "refs/heads/spec-0.11";
-            hash = "sha256-sR4K+OVFKeUOvNIqcCr5Br7NLxOBEwoAgsIyjsZmb8s=";
+            hash = "sha256-WAt2QPvv/gy9oTpk0iUJOxB0rDLE+vqLD3a7k9wcOvE=";
           };
         };
       }

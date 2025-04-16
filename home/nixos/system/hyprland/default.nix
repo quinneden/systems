@@ -164,7 +164,7 @@ in
         kb_layout = keyboardLayout;
         kb_options = "caps:escape";
         follow_mouse = 1;
-        sensitivity = 0.3;
+        sensitivity = 0.2;
         repeat_delay = 250;
         repeat_rate = 45;
         numlock_by_default = true;

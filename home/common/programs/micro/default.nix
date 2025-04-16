@@ -19,7 +19,7 @@
     settings = {
       autoclose = true;
       autosu = true;
-      colorscheme = lib.optionalString pkgs.stdenv.isDarwin "cuddles";
+      colorscheme = "cuddles";
       comment = true;
       diff = true;
       ftoptions = true;
