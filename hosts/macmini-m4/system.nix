@@ -56,7 +56,7 @@
       dock = {
         autohide = false;
         autohide-delay = 0.7;
-        autohide-time-modifier = 0.7;
+        autohide-time-modifier = 0.3;
         mineffect = "suck";
         show-recents = false;
       };
